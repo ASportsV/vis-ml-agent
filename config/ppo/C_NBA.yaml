@@ -1,0 +1,63 @@
+behaviors:
+  RVOLabel:
+    trainer_type: ppo
+    hyperparameters:
+      batch_size: 1024
+      buffer_size: 204800
+      learning_rate: 0.0003
+      beta: 0.002
+      epsilon: 0.2
+      lambd: 0.95
+      num_epoch: 3
+      learning_rate_schedule: linear
+    network_settings:
+      normalize: False
+      hidden_units: 256
+      num_layers: 2
+      vis_encode_type: simple
+    reward_signals:
+      extrinsic:
+        gamma: 0.995
+        strength: 1.0
+    keep_checkpoints: 5
+    max_steps: 20000000
+    time_horizon: 256
+    summary_freq: 20000
+environment_parameters:
+  rew_x: -0.001
+  rew_z: -0.001
+  xzDistThres: 1.2
+  moveUnit: 3
+  DecisionPeriod: 5
+  onlyTestMC: 0
+  movingCam: 0
+  ob_w: 0
+  small: 1
+  num_agents:
+    curriculum:
+      - name: Lesson0 # The '-' is important as this is a list
+        completion_criteria:
+          measure: progress
+          behavior: RVOLabel
+          signal_smoothing: true
+          min_lesson_length: 100
+          threshold: 0.2
+        value: 3.0
+      - name: Lesson1
+        completion_criteria:
+          measure: progress
+          behavior: RVOLabel
+          signal_smoothing: true
+          min_lesson_length: 100
+          threshold: 0.4
+        value: 5.0
+      - name: Lesson2
+        completion_criteria:
+          measure: progress
+          behavior: RVOLabel
+          signal_smoothing: true
+          min_lesson_length: 100
+          threshold: 0.6
+        value: 7.0
+      - name: Lesson3
+        value: 10.0
