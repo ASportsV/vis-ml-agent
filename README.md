@@ -1,6 +1,10 @@
-<img src="docs/images/image-banner.png" align="middle" width="3000"/>
-
 # This is the code we used to train our [RL-Label](https://github.com/ASportsV/RL-Label)
+
+
+
+
+
+<img src="docs/images/image-banner.png" align="middle" width="3000"/>
 
 # Unity ML-Agents Toolkit
 
